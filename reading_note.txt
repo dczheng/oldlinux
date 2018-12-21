@@ -1,0 +1,129 @@
+EFLAGS:
+    0:     CF ( CArry Flag )
+    1:     1
+    2:     PF ( Parity Flag )
+    3:     0
+    4:     AF ( Auxiliary Carry Flag )
+    5:     0
+    6:     ZF ( Zero Flag )
+    7:     SF ( Sign Flag )
+    8:     TF ( Trap Flag )
+    9:     IF ( Interrupt flag )
+    10:    DF ( Direction Flag )
+    11:    OF ( Overflow Flag )
+    12-13: IOPL ( I/O Privilege Level )
+    14:    NF ( Nest Flag )
+    10:    0
+    16:    RF ( Resume Flag )
+    17:    VM ( Virtual-8086 Mode )
+    18-31: Reserved
+
+CR0:
+    0:    PE ( Protected Mode Enable )
+    1:    MP ( Monitor Co-Processor )
+    2:    EM ( Emulation )
+    3:    TS ( Task Switched )
+    4:    ET ( Extension Type )
+    5:    NE ( Numeric Error )
+    6-15: Reserved
+    16:   WP ( Write Protect )
+    17:   Reserved
+    18:   AM ( Alignment Mask )
+    19-28: Reserved
+    29:   NW ( Not-Write Through )
+    30:   CD ( Cache disable )
+    31:   PG ( Paging )
+
+CR1: Reserved
+CR2: Page-Fault Linear Address
+CR3:
+    0-11: Reserved
+    12-31: Page-Directory Base
+
+
+LDT:   Local Descriptor Table
+GDT:   Global Descriptor Table
+TR:    Task Register
+MSW:   Machine State Word
+IDT:
+
+Lxxx: Load xxx Register
+Sxxx: Store xxx Register
+xxx: LDT, GDT, TR, IDT
+
+Mov CRn:  Move Control Registor
+CLTS: Clear TS Flag
+LSL:  Load Segment Limit
+HLT:  Halt Processor
+
+CPL:  Current Privilage Level
+
+Segment Selector:
+    (0-1): RPL (Requested Privilege Level)
+    (2-3): TI  ( Table Index )
+           1: LDT, 0:GDT
+    4-15:  Index
+    CS, SS, DS, ES, FS, GS
+
+Segment Descriptor:
+    (0-15):   Segment Limit  15..0
+    (16-31):  Base Address 15..0
+
+    (0-7):    Base Address 23..16
+    (8-11):   Type Field
+
+    (12):     S (Descriptor Type Flag)
+              0: System Descriptor
+              1: Code/Data Descriptor
+    (13-14):  DPL (Descriptor Privilege Level)
+    (15):     P ( Segment Present )
+    (16-19):  Segment Limit 19..16
+    (20):     AVL ( Avaliable and Reserved Bits )
+    (21):     0   ( Avaliable and Reserved Bits )
+    (22):     D/B ( Default Operation Size/Default Stack Pointer Size and/or Upper Bound )
+    (23):     G ( Granularity )
+    (24-31):  Base Address 31..24
+
+    S=1, Type:
+        11: Data-Code Flag, 1: Data, 0: Code
+        Data:
+            8: A(Accessed), 9: W(Write-enable), 10: E(Expansion-direction)
+        Code:
+            8: A(Accessed), 9: R(Read-enable),  10: C(Conforming)
+    S=0, Type:
+        System Descriptor:
+            LDT Descriptor, TSS Descriptor, Gates Descriptor( Call, Task, Trap, Interrupt )
+        8-11:
+            0000: Reserved
+            0001: 16-Bit TSS(Avalible)
+            0010: LDT
+            0011: 16-Bit TSS(Busy)
+            0100: 16-Bit Call Gate
+            0101: Task Gate
+            0110: 16-Bit Interrupt Gate
+            0111: 16-Bit Trap Gate
+            1000: Reserved
+            1001: 32-Bit TSS(Avalible)
+            1010: Reserved
+            1011: 32-Bit TSS(Busy)
+            1100: 32-Bit Call Gate
+            1101: Reserved
+            1110: 32-Bit Interrupt Gate
+            1111: 32-Bit Trap Gate
+
+Page:
+    0-11: Offset Address
+    12-31: Base Address
+        22-31: Page Directory
+        12-21: Page Table
+    Page Table:
+        12-31: Page Fram Address
+        0:     P ( Present )
+        1:     R/W ( Read/Write )
+        2:     U/S ( User/Supervisor )
+        3-4:   0
+        5:     A ( Accesed )
+        6:     D ( Dirty )
+        7-8:   0
+        9-11:  AVL
+
