@@ -44,6 +44,25 @@ GDTR, IDTR, LDTR:
     0-15: table length
     16-47: 32 bit base address
 
+TSS is only stored in GDT.
+
+TSS Descriptor:
+[1]
+    0-7: Base address 16-23
+    8-11: Type, 9: B
+    12: 0
+    13-14: DPL
+    15: P
+    16-19: Segment Limit 16..19
+    20: AVL
+    21: 0
+    22: 0
+    23: G, G=0 ->  Segment Limit >= 103
+    24-31: Base address 24-31
+[2]
+    0-15: Segment Limit 0-15
+    16-31: Base address 0-15
+
 LDT:   Local Descriptor Table
 GDT:   Global Descriptor Table
 TR:    Task Register
@@ -52,6 +71,9 @@ MSW:   Machine State Word
 Lxxx: Load xxx Register
 Sxxx: Store xxx Register
 xxx: LDT, GDT, TR, IDT
+
+LMSW: Load machine State Word, 0-15: CR0
+
 
 Mov CRn:  Move Control Registor
 CLTS: Clear TS Flag
@@ -68,9 +90,11 @@ Segment Selector:
     CS, SS, DS, ES, FS, GS
 
 Segment Descriptor:
+[1]
     (0-15):   Segment Limit  15..0
     (16-31):  Base Address 15..0
 
+[2]
     (0-7):    Base Address 23..16
     (8-11):   Type Field
 
@@ -129,7 +153,20 @@ Page:
         7-8:   0
         9-11:  AVL
 
-LMSW: Load machine State Word, 0-15: CR0
+IDT table contains: Interrupt gate, Trap gate, Task gate.
+Interrupt Gate:
+[1]
+    0-4:
+    5-7:
+    8-12:
+    13-14: DPL
+    15: P
+    16-31: Entry address 16-31
+[2]
+    0-15: Entry adreff 0-15
+    16-31: Segment Descriptor
 
 website of assembly language:
 [1] www.cs.virginia.edu/~evans/cs216/guides/x86.html
+[2] www.jagregory.com/abrash/-zen-of-asm/
+[3] https://github.com/jagregory/abrash-zen-of-asm
