@@ -40,12 +40,14 @@ CR3:
     0-11: Reserved
     12-31: Page-Directory Base
 
+GDTR, IDTR, LDTR:
+    0-15: table length
+    16-47: 32 bit base address
 
 LDT:   Local Descriptor Table
 GDT:   Global Descriptor Table
 TR:    Task Register
 MSW:   Machine State Word
-IDT:
 
 Lxxx: Load xxx Register
 Sxxx: Store xxx Register
@@ -60,9 +62,9 @@ CPL:  Current Privilage Level
 
 Segment Selector:
     (0-1): RPL (Requested Privilege Level)
-    (2-3): TI  ( Table Index )
+    (2): TI  ( Table Index )
            1: LDT, 0:GDT
-    4-15:  Index
+    3-15:  Index
     CS, SS, DS, ES, FS, GS
 
 Segment Descriptor:
@@ -127,3 +129,7 @@ Page:
         7-8:   0
         9-11:  AVL
 
+LMSW: Load machine State Word, 0-15: CR0
+
+website of assembly language:
+[1] www.cs.virginia.edu/~evans/cs216/guides/x86.html
