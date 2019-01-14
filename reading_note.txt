@@ -170,3 +170,4 @@ website of assembly language:
 [1] www.cs.virginia.edu/~evans/cs216/guides/x86.html
 [2] www.jagregory.com/abrash/-zen-of-asm/
 [3] https://github.com/jagregory/abrash-zen-of-asm
+[4] https://www.aldeid.com/wiki/X86-assembly/Instructions
